@@ -1,0 +1,10 @@
+cd c:\users\uday\documents\github\piko-home
+git push
+cd c:\users\uday\documents\github\piko-daps
+git push
+cd c:\users\uday\documents\github\piko-paws
+git push
+cd c:\users\uday\documents\github\piko-amsts
+git push
+cd c:\users\uday\documents\github\piko-orgs
+git push

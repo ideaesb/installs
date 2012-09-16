@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+<project name="piko" default="test">
+	
+
+  <target name="test">
+	  	
+    <echo message="Replacing home tab link ../index.pho with temp test link saying /piko/" />
+     
+
+    <replace file="./daps/src/main/resources/org/ideademo/daps/pages/Index.tml" token="../index.php" value="/piko/"/>
+    <replace file="./paws/src/main/resources/org/ideademo/pawz/pages/Index.tml" token="../index.php" value="/piko/"/>
+    <replace file="./asmts/src/main/resources/org/ideademo/asmts/pages/Index.tml" token="../index.php" value="/piko/"/>
+    <replace file="./orgs/src/main/resources/org/ideademo/orgs/pages/Index.tml" token="../index.php" value="/piko/"/>
+
+ 	
+  </target>
+
+</project>
