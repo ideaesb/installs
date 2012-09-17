@@ -1,4 +1,4 @@
-echo Removing all working directories
+echo Removing all working directories - PLS TURN OFF TOMCAT!!!!
 rmdir /s /q home
 rmdir /s /q daps
 rmdir /s /q paws
@@ -8,10 +8,10 @@ echo creating new working directories
 mkdir home
 mkdir daps
 mkdir paws
-rem   this is to take care of caps Asmt directory which is crashing view 
+rem   this long working directory is to take care of caps "Asmt" directory which is crashing viewAsmt
 mkdir asmts/src/main/resources/org/ideademo/asmts/pages/asmt
 mkdir orgs
-echo Copying from Github all working directories - TURN OFF TOMCAT BY NOW - 
+echo Copying from Github all working directories - TURN OFF TOMCAT BY NOW !!!!! - 
 xcopy c:\users\administrator\documents\github\piko-home home /e /y
 xcopy c:\users\administrator\documents\github\piko-home c:\websites\piko /e /y /d
 xcopy c:\users\administrator\documents\github\piko-home c:\websites\pacis\piko /e /y /d
@@ -19,6 +19,14 @@ xcopy c:\users\administrator\documents\github\piko-daps daps /e /y
 xcopy c:\users\administrator\documents\github\piko-paws paws /e /y
 xcopy c:\users\administrator\documents\github\piko-asmts c:\installs\piko\asmts /e /y /i
 xcopy c:\users\administrator\documents\github\piko-orgs orgs /e /y
+rem so to run in test mode you would do deploy.bat anything.  For prod, just deploy.bat with no arguments
+IF (%1)==() GOTO SKIP_TEST_FIX
+start "!!! Replace index.php with piko for test !!!" /wait cmd /c ant -f test.xml
+:SKIP_TEST_FIX
+start "daps build" /D daps /wait cmd /c mvn clean install
+start "paws build" /D paws /wait cmd /c mvn clean install
+start "asmts build" /D asmts /wait cmd /c mvn clean install
+start "orgs build" /D orgs /wait cmd /c mvn clean install
 rmdir /s /q c:\tomcat5.5.35\logs
 mkdir c:\tomcat5.5.35\logs
 echo off
@@ -32,11 +40,6 @@ rmdir /s /q c:\webapps\pawz
 rmdir /s /q c:\webapps\asmts
 rmdir /s /q c:\webapps\orgs
 echo Cleaned up Tomcat - build new wars 
-start "!!! TEST ONLY !!!" /wait cmd /c ant -f test.xml
-start "daps build" /D daps /wait cmd /c mvn clean install
-start "paws build" /D paws /wait cmd /c mvn clean install
-start "asmts build" /D asmts /wait cmd /c mvn clean install
-start "orgs build" /D orgs /wait cmd /c mvn clean install
 xcopy daps\target\*.war c:\webapps /y /d
 xcopy paws\target\*.war c:\webapps /y /d
 xcopy asmts\target\*.war c:\webapps /y /d
